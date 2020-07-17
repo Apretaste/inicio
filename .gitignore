@@ -1,0 +1,7 @@
+nbproject/*
+.settings/*
+.buildpath
+.project
+*~
+*.zip
+.idea/*

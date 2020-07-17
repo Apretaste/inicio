@@ -1,0 +1,105 @@
+/* ICONS */
+
+.icon-text {
+	margin: 3px 0px 20px 0px;
+	font-size: small;
+	white-space: nowrap;
+}
+
+.icon-alert {
+	background-color: #ff0000;
+	width: 17px;
+	height: 17px;
+	border: 2px solid white;
+	border-radius: 10px;
+	position: relative;
+	top: 0px;
+	left: 45px;
+}
+
+/* DROP DOWN */
+
+.drop-down .icon {
+	position: absolute;
+	right: 15px;
+	top: 10px;
+}
+
+.drop-down .options {
+	display: none;
+	position: fixed;
+	z-index: 1;
+}
+
+.drop-down ul {
+	background-color: #fff;
+	overflow-y: auto;
+	width: 100%;
+	position: relative;
+	left: -15px;
+	top: -55px;
+	z-index: 9999;
+	transform-origin: 0 0;
+	margin: 0px 10px;
+	border-radius: 3px;
+}
+
+.drop-down li {
+	cursor: pointer;
+	min-height: 50px;
+	width: 100%;
+	text-align: left;
+	font-size: 16px;
+	color: #57b23b;
+	display: inline-block;
+	line-height: 22px;
+	padding: 14px 16px;
+}
+
+.drop-down li .counter {
+	float: right;
+	color: #212121;
+}
+
+/* WIDGETS */
+
+.widgets.row {
+	padding: 0px 5px;
+	margin-bottom: -0px;
+}
+
+.widgets > .col {
+	padding: 0 .5rem;
+}
+
+.widget {
+	color: white;
+	background-color: #52a43f;
+	border-radius: 10px;
+	height: 120px;
+	padding: 10px;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+.widget .label {
+	margin: 0px;
+	font-size: small;
+	color: #cfd8dc;
+}
+
+.widget .division {
+	border-bottom: 1px solid white;
+	margin: 10px 25px 5px 25px;
+	opacity: 0.2;
+}
+
+/* COLORS */
+
+.green {
+	background-color: #52a43f !important;
+}
+
+.green-text {
+	color: #52a43f !important;
+}

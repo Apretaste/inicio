@@ -1,0 +1,117 @@
+<div class="row widgets">
+	<div class="col s8">
+		<div class="widget">
+			<div class="row" style="margin-bottom:0px;">
+				<div class="col s6">
+					<p class="label">Primero</p>
+					<i class="fas fa-book-dead"></i> 203
+				</div>
+				<div class="col s6">
+					<p class="label">Segundo</p>
+					<i class="fas fa-burn"></i> 203
+				</div>
+			</div>
+			<div class="division"></div>
+			<div class="row" style="margin-bottom:0px;">
+				<div class="col s6">
+					<p class="label">Tercero</p>
+					<i class="fas fa-carrot"></i> 203
+				</div>
+				<div class="col s6">
+					<p class="label">Cuarto</p>
+					<i class="fas fa-cheese"></i> 203
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col s4">
+		<div class="widget">
+			<p class="label">Amigos</p>
+			<i class="fas fa-user-friends"></i> 203
+			<div class="division"></div>
+			<p class="label">Mensajes</p>
+			<i class="fas fa-comments"></i> 13
+		</div>
+	</div>
+
+	<div class="col s4">
+		<div class="widget">
+			<p class="label">Amuletos</p>
+			<div class="division" style="margin-bottom:10px;"></div>
+			<span class="fa-stack fa-1x" style="margin:2px;">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-hat-cowboy-side fa-stack-1x fa-inverse green-text"></i>
+			</span>
+			<span class="fa-stack fa-1x" style="margin:2px;">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-heart-broken fa-stack-1x fa-inverse green-text"></i>
+			</span>
+			<span class="fa-stack fa-1x" style="margin:2px;">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-bomb fa-stack-1x fa-inverse green-text"></i>
+			</span>
+		</div>
+	</div>
+
+	<div class="col s4">
+		<div class="widget">
+			<p class="label">Likes</p>
+			<i class="fas fa-thumbs-up"></i> 19
+			<div class="division"></div>
+			<p class="label">Comentarios</p>
+			<i class="fas fa-comments"></i> 21
+		</div>
+	</div>
+
+	<div class="col s4">
+		<div class="widget">
+			<p class="label">Parejas</p>
+			<i class="fas fa-heart"></i> 9
+			<div class="division"></div>
+			<p class="label">Le gustas</p>
+			<i class="fas fa-grin-hearts"></i> 2
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<!-- FILTER -->
+	<div class="col s12 input-field">
+		<div class="drop-down">
+			<i class="material-icons icon" onclick="options()">arrow_drop_down</i>
+			<input id="filter" type="text" placeholder="Servicio a buscar" onkeyup="filter()" onfocus="clean()">
+			<div class="options">
+				<ul class="z-depth-1">
+					<li value="all" onclick="select(this)">
+						<span class="text">Ver todos</span>
+						<span class="counter"><%= services.length %></span>
+					</li>
+					<% Object.keys(categories).forEach(function(key){ %>
+						<% var item = categories[key] %>
+						<li value="<%= item.code %>" onclick="select(this)">
+							<span class="text"><%= item.name %></span>
+							<span class="counter"><%= item.count %></span>
+						</li>
+					<% }) %>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<!-- SERVICES -->
+	<% services.forEach(function(item) { %>
+		<div class="col s3 m2 center-align service <%= item.category %>" data-value="<%= item.caption %>">
+			<a href="#!" class="green-text" onclick="apretaste.send({command:'<%= item.name %>'})">
+				<span class="fa-stack fa-2x">
+					<i class="fas fa-circle fa-stack-2x green-text"></i>
+					<i class="fas fa-<%= item.icon %> fa-stack-1x fa-inverse"></i>
+					<% if(item.count > 0) { %>
+						<div class="icon-alert"></div>
+					<% } %>
+				</span>
+				<p class="icon-text green-text"><%= item.caption %></p>
+			</a>
+		</div>
+	<% }) %>
+</div>

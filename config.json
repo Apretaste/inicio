@@ -1,0 +1,10 @@
+{
+	"name": "inicio",
+	"caption": "Inicio",
+	"icon": "home",
+	"description": "Muestra la lista de widgets y servicios de Apretaste, y permite buscar por categoría.",
+	"category": "otros",
+	"creator": "salvi@apretaste.org",
+	"listed": false,
+	"guest": true
+}
