@@ -1,0 +1,175 @@
+<div class="row widgets">
+	<!-- social -->
+	<div class="col s8 widget-action-block">
+		<i class="fas <%= widgets.indexOf('social') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="social" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<div class="row" style="margin-bottom:0px;">
+				<div class="col s6">
+					<p class="label">Amigos</p>
+					<i class="fas fa-user-friends"></i> 203
+				</div>
+				<div class="col s6">
+					<p class="label">Ranking</p>
+					<i class="fas fa-trophy"></i> #125
+				</div>
+			</div>
+			<div class="division"></div>
+			<div class="row" style="margin-bottom:0px;">
+				<div class="col s6">
+					<p class="label">Mensajes</p>
+					<i class="fas fa-comments"></i> 13
+				</div>
+				<div class="col s6">
+					<p class="label">Retos</p>
+					<i class="fas fa-flag"></i> 2
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- experiencia -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('experiencia') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="experiencia" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p class="label">Experiencia</p>
+			<i class="fas fa-bolt"></i> 1254
+			<div class="division"></div>
+			<p class="label">Nivel</p>
+			<i class="fas fa-gem"></i> Diamante
+		</div>
+	</div>
+
+	<!-- amuletos -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('amuletos') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="amuletos" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p class="label">Amuletos</p>
+			<div class="division" style="margin-bottom:10px;"></div>
+			<span class="fa-stack fa-1x" style="margin:2px;">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-camera fa-stack-1x fa-inverse green-text"></i>
+			</span>
+			<span class="fa-stack fa-1x" style="margin:2px;">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-heart-broken fa-stack-1x fa-inverse green-text"></i>
+			</span>
+			<span class="fa-stack fa-1x" style="margin:2px;">
+				<i class="fas fa-circle fa-stack-2x"></i>
+				<i class="fas fa-bomb fa-stack-1x fa-inverse green-text"></i>
+			</span>
+		</div>
+	</div>
+
+	<!-- pizarra -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('pizarra') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="pizarra" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<i class="fas fa-clipboard-list fa-2x" style="margin-top: 8px;"></i>
+			<div class="division"></div>
+			<i class="fas fa-thumbs-up"></i> 19
+			<br>
+			<i class="fas fa-comments"></i> 21
+		</div>
+	</div>
+
+	<!-- ayuda -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('ayuda') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="ayuda" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<i class="fas fa-headset fa-2x" style="margin-top: 8px;"></i>
+			<div class="division"></div>
+			<p class="label">Soporte</p>
+			<i class="fas fa-comment"></i> 11
+		</div>
+	</div>
+
+	<!-- rifa -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('rifa') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="rifa" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p>Rifa</p>
+			<div class="division"></div>
+			<p class="label">Nov 23</p>
+			<i class="fas fa-ticket-alt"></i> 121
+		</div>
+	</div>
+
+	<!-- bolita -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('bolita') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="bolita" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p class="label">Bolita</p>
+			<div class="division"></div>
+			<span class="lime-text">
+				<i class="fas fa-sun"></i> <b>#12</b> #23 #2
+			</span>
+			<span class="blue-grey-text text-darken-4">
+				<i class="fas fa-moon"></i> <b>#100</b> #45 #28
+			</span>
+		</div>
+	</div>
+
+	<!-- online -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('online') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="online" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p class="label"><span style="color:white; font-size:15px;">123</span> días de uso diario</p>
+			<div class="division"></div>
+			<i class="fas fa-circle fa-xs" style="margin-right:5px;"></i>
+			<i class="fas fa-circle fa-xs" style="margin-right:5px;"></i>
+			<i class="fas fa-circle fa-xs" style="margin-right:5px;"></i>
+			<i class="fas fa-circle-notch fa-xs" style="margin-right:5px;"></i>
+			<i class="fas fa-circle-notch fa-xs" style="margin-right:5px;"></i>
+			<i class="fas fa-circle-notch fa-xs" style="margin-right:5px;"></i>
+			<i class="fas fa-circle-notch fa-xs" style="margin-right:5px;"></i>
+		</div>
+	</div>
+
+	<!-- piropazo -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('piropazo') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="piropazo" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p class="label">Parejas</p>
+			<i class="fas fa-heart"></i> 9
+			<div class="division"></div>
+			<p class="label">Le gustas</p>
+			<i class="fas fa-grin-hearts"></i> 2
+		</div>
+	</div>
+
+	<!-- noticia -->
+	<div class="col s8 widget-action-block">
+		<i class="fas <%= widgets.indexOf('noticia') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="noticia" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p class="left-align" style="margin:0px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incidid...</p>
+			<div class="division"></div>
+			<span style="margin-right:10px;"><i class="fas fa-newspaper"></i> CubaNet</span>
+			<i class="fas fa-comment"></i> 92
+		</div>
+	</div>
+</div>
+
+<!-- favoritos -->
+<div class="row">
+	<div class="col s12">
+		<div class="input-field col s12">
+			<select id="favoritos" multiple>
+				<option value="" disabled>Servicios favoritos</option>
+				<% services.forEach(function(item) { %>
+					<% var selected = favorites && favorites.indexOf(item.name) !== -1 ? 'selected' : '' %>
+					<option <%= selected %> value="<%= item.name %>" ><%= item.caption %></option>
+				<% }) %>
+			</select>
+			<label>Escoja sus cuatro servicios favoritos</label>
+		</div>
+	</div>
+</div>
+
+<div class="bottom-space"></div>
+
+<!-- FLOATING BUTTON -->
+<div class="fixed-action-btn">
+	<a href="#newModal" class="btn-floating btn-large waves-effect waves-light modal-trigger green" onclick="widgetSave()">
+		<i class="large material-icons">save</i>
+	</a>
+</div>

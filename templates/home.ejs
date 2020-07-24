@@ -1,111 +1,205 @@
 <div class="row widgets">
+	<!-- social -->
+	<% if(widgets['social']) { %>
 	<div class="col s8">
 		<div class="widget">
 			<div class="row" style="margin-bottom:0px;">
 				<div class="col s6">
-					<p class="label">Primero</p>
-					<i class="fas fa-book-dead"></i> 203
+					<p class="label">Amigos</p>
+					<i class="fas fa-user-friends"></i> <%= widgets['social'].amigos %>
 				</div>
 				<div class="col s6">
-					<p class="label">Segundo</p>
-					<i class="fas fa-burn"></i> 203
+					<p class="label">Ranking</p>
+					<i class="fas fa-trophy"></i> #<%= widgets['social'].ranking %>
 				</div>
 			</div>
 			<div class="division"></div>
 			<div class="row" style="margin-bottom:0px;">
 				<div class="col s6">
-					<p class="label">Tercero</p>
-					<i class="fas fa-carrot"></i> 203
+					<p class="label">Mensajes</p>
+					<i class="fas fa-comments"></i> <%= widgets['social'].mensajes %>
 				</div>
 				<div class="col s6">
-					<p class="label">Cuarto</p>
-					<i class="fas fa-cheese"></i> 203
+					<p class="label">Retos</p>
+					<i class="fas fa-flag"></i> <%= widgets['social'].retos %>
 				</div>
 			</div>
 		</div>
 	</div>
+	<% } %>
 
+	<!-- online -->
+	<% if(widgets['online']) { %>
 	<div class="col s4">
 		<div class="widget">
-			<p class="label">Amigos</p>
-			<i class="fas fa-user-friends"></i> 203
+			<p class="label"><span style="color:white; font-size:15px;"><%= widgets['online'].dias %></span> días de uso diario</p>
 			<div class="division"></div>
-			<p class="label">Mensajes</p>
-			<i class="fas fa-comments"></i> 13
+			<i class="fas fa-circle fa-xs" style="margin-right:5px;"></i>
+			<i class="fas <%= widgets['online'].semana >=2 ? 'fa-circle' : 'fa-circle-notch' %> fa-xs" style="margin-right:5px;"></i>
+			<i class="fas <%= widgets['online'].semana >=3 ? 'fa-circle' : 'fa-circle-notch' %> fa-xs" style="margin-right:5px;"></i>
+			<i class="fas <%= widgets['online'].semana >=4 ? 'fa-circle' : 'fa-circle-notch' %> fa-xs" style="margin-right:5px;"></i>
+			<i class="fas <%= widgets['online'].semana >=5 ? 'fa-circle' : 'fa-circle-notch' %> fa-xs" style="margin-right:5px;"></i>
+			<i class="fas <%= widgets['online'].semana >=6 ? 'fa-circle' : 'fa-circle-notch' %> fa-xs" style="margin-right:5px;"></i>
+			<i class="fas <%= widgets['online'].semana ==7 ? 'fa-circle' : 'fa-circle-notch' %> fa-xs" style="margin-right:5px;"></i>
 		</div>
 	</div>
+	<% } %>
 
+	<!-- experiencia -->
+	<% if(widgets['experiencia']) { %>
+	<div class="col s4">
+		<div class="widget">
+			<p class="label">Experiencia</p>
+			<i class="fas fa-bolt"></i> <%= widgets['experiencia'].experiencia %>
+			<div class="division"></div>
+			<p class="label">Nivel</p>
+			<i class="fas fa-gem"></i> <%= widgets['experiencia'].nivel %>
+		</div>
+	</div>
+	<% } %>
+
+	<!-- pizarra -->
+	<% if(widgets['pizarra']) { %>
+	<div class="col s4">
+		<div class="widget">
+			<i class="fas fa-clipboard-list fa-2x" style="margin-top: 8px;"></i>
+			<div class="division"></div>
+			<i class="fas fa-thumbs-up"></i> <%= widgets['pizarra'].like %>
+			<br>
+			<i class="fas fa-comments"></i> <%= widgets['pizarra'].comment %>
+		</div>
+	</div>
+	<% } %>
+
+	<!-- amuletos -->
+	<% if(widgets['amuletos']) { %>
 	<div class="col s4">
 		<div class="widget">
 			<p class="label">Amuletos</p>
 			<div class="division" style="margin-bottom:10px;"></div>
 			<span class="fa-stack fa-1x" style="margin:2px;">
 				<i class="fas fa-circle fa-stack-2x"></i>
-				<i class="fas fa-hat-cowboy-side fa-stack-1x fa-inverse green-text"></i>
+				<i class="fas fa-<%= widgets['amuletos'].one %> fa-stack-1x fa-inverse green-text"></i>
 			</span>
 			<span class="fa-stack fa-1x" style="margin:2px;">
 				<i class="fas fa-circle fa-stack-2x"></i>
-				<i class="fas fa-heart-broken fa-stack-1x fa-inverse green-text"></i>
+				<i class="fas fa-<%= widgets['amuletos'].two %> fa-stack-1x fa-inverse green-text"></i>
 			</span>
 			<span class="fa-stack fa-1x" style="margin:2px;">
 				<i class="fas fa-circle fa-stack-2x"></i>
-				<i class="fas fa-bomb fa-stack-1x fa-inverse green-text"></i>
+				<i class="fas fa-<%= widgets['amuletos'].three %> fa-stack-1x fa-inverse green-text"></i>
 			</span>
 		</div>
 	</div>
+	<% } %>
 
+	<!-- ayuda -->
+	<% if(widgets['ayuda']) { %>
 	<div class="col s4">
 		<div class="widget">
-			<p class="label">Likes</p>
-			<i class="fas fa-thumbs-up"></i> 19
+			<i class="fas fa-headset fa-2x" style="margin-top: 8px;"></i>
 			<div class="division"></div>
-			<p class="label">Comentarios</p>
-			<i class="fas fa-comments"></i> 21
+			<p class="label">Soporte</p>
+			<i class="fas fa-comment"></i> <%= widgets['ayuda'].tickets %>
 		</div>
 	</div>
+	<% } %>
 
+	<!-- rifa -->
+	<% if(widgets['rifa']) { %>
+	<div class="col s4">
+		<div class="widget">
+			<p>Rifa</p>
+			<div class="division"></div>
+			<p class="label"><%= widgets['rifa'].fecha %></p>
+			<i class="fas fa-ticket-alt"></i> <%= widgets['rifa'].tickets %>
+		</div>
+	</div>
+	<% } %>
+
+	<!-- bolita -->
+	<% if(widgets['bolita']) { %>
+	<div class="col s4">
+		<div class="widget">
+			<p class="label">Bolita</p>
+			<div class="division"></div>
+			<span class="lime-text">
+				<i class="fas fa-sun"></i> <b>#<%= widgets['bolita'].day_one %></b> #<%= widgets['bolita'].day_two %> #<%= widgets['bolita'].day_three %>
+			</span>
+			<span class="blue-grey-text text-darken-4">
+				<i class="fas fa-moon"></i> <b>#<%= widgets['bolita'].night_one %></b> #<%= widgets['bolita'].night_two %> #<%= widgets['bolita'].night_three %>
+			</span>
+		</div>
+	</div>
+	<% } %>
+
+	<!-- piropazo -->
+	<% if(widgets['piropazo']) { %>
 	<div class="col s4">
 		<div class="widget">
 			<p class="label">Parejas</p>
-			<i class="fas fa-heart"></i> 9
+			<i class="fas fa-heart"></i> <%= widgets['piropazo'].parejas %>
 			<div class="division"></div>
 			<p class="label">Le gustas</p>
-			<i class="fas fa-grin-hearts"></i> 2
+			<i class="fas fa-grin-hearts"></i> <%= widgets['piropazo'].likes %>
 		</div>
+	</div>
+	<% } %>
+
+	<!-- noticia -->
+	<% if(widgets['noticia']) { %>
+	<div class="col s8">
+		<div class="widget">
+			<p class="left-align" style="margin:0px;"><%= widgets['noticia'].titulo %></p>
+			<div class="division"></div>
+			<span style="margin-right:10px;"><i class="fas fa-newspaper"></i> <%= widgets['noticia'].canal %></span>
+			<i class="fas fa-comment"></i> <%= widgets['noticia'].comment %>
+		</div>
+	</div>
+	<% } %>
+</div>
+
+<% if(favorites.length > 0) { %>
+	<div class="row green">
+		<div class="col s12" style="padding-top:10px; padding-bottom:10px;">
+			<% favorites.forEach(function(item) { %>
+				<div class="col s3 m2 center-align">
+					<a href="#!" class="white-text" onclick="apretaste.send({command:'<%= item.name %>'})">
+						<span class="fa-stack fa-2x">
+							<i class="fas fa-circle fa-stack-2x white-text"></i>
+							<i class="fas <%= item.icon %> fa-stack-1x fa-inverse green-text"></i>
+							<% if(item.count > 0) { %>
+								<div class="icon-alert"></div>
+							<% } %>
+						</span>
+					</a>
+				</div>
+			<% }) %>
+		</div>
+	</div>
+<% } %>
+
+<!-- FILTERS -->
+<div class="row">
+	<div class="col s12">
+		<span class="chip tiny" data="todos" onclick="filtrar(this)"><i class="fas fa-check-circle"></i> <span class="filter">Todos</span> (<%= services.length %>)</span>
+		<span class="chip tiny" data="social" onclick="filtrar(this)"><i class="fas fa-users"></i> <span class="hidden filter">Social</span> (<%= categories['social'] %>)</span>
+		<span class="chip tiny" data="informativo" onclick="filtrar(this)"><i class="fas fa-book-open"></i> <span class="hidden filter">Informativo</span> (<%= categories['informativo'] %>)</span>
+		<span class="chip tiny" data="negocios" onclick="filtrar(this)"><i class="fas fa-money-bill"></i> <span class="hidden filter">Negocios</span> (<%= categories['negocios'] %>)</span>
+		<span class="chip tiny" data="ocio" onclick="filtrar(this)"><i class="fas fa-grin-squint"></i> <span class="hidden filter">Ocio</span> (<%= categories['ocio'] %>)</span>
+		<span class="chip tiny" data="utiles" onclick="filtrar(this)"><i class="fas fa-calculator"></i> <span class="hidden filter">Útiles</span> (<%= categories['utiles'] %>)</span>
+		<span class="chip tiny" data="buscar" onclick="filtrar(this)"><i class="fas fa-search"></i> <span class="hidden filter"><input id="buscar" onkeyup="buscar()" type=""></span></span>
 	</div>
 </div>
 
+<!-- SERVICES -->
 <div class="row">
-	<!-- FILTER -->
-	<div class="col s12 input-field">
-		<div class="drop-down">
-			<i class="material-icons icon" onclick="options()">arrow_drop_down</i>
-			<input id="filter" type="text" placeholder="Servicio a buscar" onkeyup="filter()" onfocus="clean()">
-			<div class="options">
-				<ul class="z-depth-1">
-					<li value="all" onclick="select(this)">
-						<span class="text">Ver todos</span>
-						<span class="counter"><%= services.length %></span>
-					</li>
-					<% Object.keys(categories).forEach(function(key){ %>
-						<% var item = categories[key] %>
-						<li value="<%= item.code %>" onclick="select(this)">
-							<span class="text"><%= item.name %></span>
-							<span class="counter"><%= item.count %></span>
-						</li>
-					<% }) %>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<!-- SERVICES -->
 	<% services.forEach(function(item) { %>
 		<div class="col s3 m2 center-align service <%= item.category %>" data-value="<%= item.caption %>">
 			<a href="#!" class="green-text" onclick="apretaste.send({command:'<%= item.name %>'})">
 				<span class="fa-stack fa-2x">
 					<i class="fas fa-circle fa-stack-2x green-text"></i>
-					<i class="fas fa-<%= item.icon %> fa-stack-1x fa-inverse"></i>
+					<i class="<%= item.icon %> fa-stack-1x fa-inverse"></i>
 					<% if(item.count > 0) { %>
 						<div class="icon-alert"></div>
 					<% } %>
