@@ -159,7 +159,7 @@ class Service
 	 * @param Response $response
 	 * @author salvipascual
 	 */
-	public function _widgets (Request $request, Response $response)
+	public function _editar (Request $request, Response $response)
 	{
 		// get list of widgets
 		$preferences = Database::queryFirst("SELECT widgets, favorite_services FROM person WHERE id = {$request->person->id}");
@@ -176,7 +176,7 @@ class Service
 
 		// create response
 		$response->setCache();
-		$response->setTemplate('widgets.ejs', $content);
+		$response->setTemplate('edit.ejs', $content);
 	}
 
 	/**

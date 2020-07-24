@@ -1,7 +1,14 @@
-/* GLOBAL */
+/* FLOAT BUTTON */
 
 .bottom-space {
 	margin-bottom: 80px;
+}
+
+.btn-floating.second {
+	margin-right: -10px;
+	width: 45px;
+	height: 45px;
+	line-height: 58px;
 }
 
 /* ICONS */
