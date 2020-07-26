@@ -26,7 +26,7 @@ function filtrar(e) {
 	// filter by category
 	else {
 		$('.service').hide();
-		$('.'+category).slideDown('fast');		
+		$('.'+category).slideDown('fast');
 	}
 }
 

@@ -4,13 +4,6 @@
 	margin-bottom: 80px;
 }
 
-.btn-floating.second {
-	margin-right: -10px;
-	width: 45px;
-	height: 45px;
-	line-height: 58px;
-}
-
 /* ICONS */
 
 .icon-text {
@@ -79,6 +72,7 @@
 .widgets.row {
 	padding-left: 5px;
 	padding-right: 5px;
+	margin-top: 15px;
 	margin-bottom: 0px;
 }
 
