@@ -16,99 +16,6 @@ class Service
 	 */
 	public function _main (Request $request, Response $response)
 	{
-		// get list of widgets
-		$preferences = Database::queryFirst("SELECT widgets, favorite_services FROM person WHERE id = {$request->person->id}");
-
-		// get data for the widgets
-		$widgets = [];
-
-		// social
-		if(strpos($preferences->widgets, 'social') !== false) {
-			$widgets['social'] = (Object) [
-				'amigos' => 112,
-				'ranking' => 412,
-				'mensajes' => 1652,
-				'retos' => 12,
-			];
-		}
-
-		// online
-		if(strpos($preferences->widgets, 'online') !== false) {
-			$widgets['online'] = (Object) [
-				'dias' => 112,
-				'semana' => 3,
-			];
-		}
-
-		// experiencia
-		if(strpos($preferences->widgets, 'experiencia') !== false) {
-			$widgets['experiencia'] = (Object) [
-				'experiencia' => 1142,
-				'nivel' => 'Diamante',
-			];
-		}
-
-		// pizarra
-		if(strpos($preferences->widgets, 'pizarra') !== false) {
-			$widgets['pizarra'] = (Object) [
-				'like' => 912,
-				'comment' => 123,
-			];
-		}
-
-		// amuletos
-		if(strpos($preferences->widgets, 'amuletos') !== false) {
-			$widgets['amuletos'] = (Object) [
-				'one' => 'camera',
-				'two' => 'heart-broken',
-				'three' => 'bomb',
-			];
-		}
-
-		// ayuda
-		if(strpos($preferences->widgets, 'ayuda') !== false) {
-			$widgets['ayuda'] = (Object) [
-				'tickets' => 123,
-			];
-		}
-
-		// rifa
-		if(strpos($preferences->widgets, 'rifa') !== false) {
-			$widgets['rifa'] = (Object) [
-				'fecha' => 'Nov 12',
-				'tickets' => 123,
-			];
-		}
-
-		// bolita
-		if(strpos($preferences->widgets, 'bolita') !== false) {
-			$widgets['bolita'] = (Object) [
-				'day_one' => '12',
-				'day_two' => '100',
-				'day_three' => '1',
-				'night_one' => '23',
-				'night_two' => '65',
-				'night_three' => '98',
-			];
-		}
-
-		// piropazo
-		if(strpos($preferences->widgets, 'piropazo') !== false) {
-			$widgets['piropazo'] = (Object) [
-				'parejas' => 12,
-				'likes' => 123,
-			];
-		}
-
-		// noticia
-		if(strpos($preferences->widgets, 'noticia') !== false) {
-			$widgets['noticia'] = (Object) [
-				'titulo' => trim(substr('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incident', 0, 80)) . '...',
-				'canal' => 'Diario de Cuba',
-				'comment' => 123,
-			];
-		}
-
 		// get list of services
 		$services = Database::query("
 			SELECT A.name, A.caption, A.icon, A.category, IFNULL(B.count, 0) AS count
@@ -117,6 +24,112 @@ class Service
 			ON A.name = B.name
 			WHERE A.listed = 1 AND A.active = 1
 			ORDER BY A.name ASC");
+
+		// get data for the widgets
+		$widgets = [];
+
+		// do not get widget data for guest users
+		if(empty($request->person->isGuest)) {
+			// get list of widgets
+			$preferences = Database::queryFirst("SELECT widgets, favorite_services FROM person WHERE id = {$request->person->id}");
+
+			// social
+			if(strpos($preferences->widgets, 'social') !== false) {
+				$widgets['social'] = (Object) [
+					'amigos' => 112,
+					'ranking' => 412,
+					'mensajes' => 1652,
+					'retos' => 12,
+				];
+			}
+
+			// online
+			if(strpos($preferences->widgets, 'online') !== false) {
+				$widgets['online'] = (Object) [
+					'dias' => 112,
+					'semana' => 3,
+				];
+			}
+
+			// experiencia
+			if(strpos($preferences->widgets, 'experiencia') !== false) {
+				$widgets['experiencia'] = (Object) [
+					'experiencia' => 1142,
+					'nivel' => 'Diamante',
+				];
+			}
+
+			// pizarra
+			if(strpos($preferences->widgets, 'pizarra') !== false) {
+				$widgets['pizarra'] = (Object) [
+					'like' => 912,
+					'comment' => 123,
+				];
+			}
+
+			// amuletos
+			if(strpos($preferences->widgets, 'amuletos') !== false) {
+				$widgets['amuletos'] = (Object) [
+					'one' => 'camera',
+					'two' => 'heart-broken',
+					'three' => 'bomb',
+				];
+			}
+
+			// ayuda
+			if(strpos($preferences->widgets, 'ayuda') !== false) {
+				$widgets['ayuda'] = (Object) [
+					'tickets' => 123,
+				];
+			}
+
+			// rifa
+			if(strpos($preferences->widgets, 'rifa') !== false) {
+				$widgets['rifa'] = (Object) [
+					'fecha' => 'Nov 12',
+					'tickets' => 123,
+				];
+			}
+
+			// bolita
+			if(strpos($preferences->widgets, 'bolita') !== false) {
+				$widgets['bolita'] = (Object) [
+					'day_one' => '12',
+					'day_two' => '100',
+					'day_three' => '1',
+					'night_one' => '23',
+					'night_two' => '65',
+					'night_three' => '98',
+				];
+			}
+
+			// piropazo
+			if(strpos($preferences->widgets, 'piropazo') !== false) {
+				$widgets['piropazo'] = (Object) [
+					'parejas' => 12,
+					'likes' => 123,
+				];
+			}
+
+			// noticia
+			if(strpos($preferences->widgets, 'noticia') !== false) {
+				$widgets['noticia'] = (Object) [
+					'titulo' => trim(substr('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incident', 0, 80)) . '...',
+					'canal' => 'Diario de Cuba',
+					'comment' => 123,
+				];
+			}
+
+			// favoritos
+			if(strpos($preferences->widgets, 'favoritos') !== false) {
+				$widgets['favoritos'] = [];
+				foreach ($services as $item) {
+					if(strpos($preferences->favorite_services, $item->name) !== false) {
+						$widgets['favoritos'][] = $item;
+					}
+				}
+			}
+		}
 
 		// get services categories
 		$cats = Database::queryCache("
@@ -131,18 +144,9 @@ class Service
 			$categories[$value->category] = $value->cnt;
 		}
 
-		// get the favorite services
-		$favorites = [];
-		foreach ($services as $item) {
-			if(strpos($preferences->favorite_services, $item->name) !== false) {
-				$favorites[] = $item;
-			}
-		}
-
 		// create the content array
 		$content = [
 			'widgets' => $widgets,
-			'favorites' => $favorites,
 			'services' => $services,
 			'categories' => $categories
 		];
@@ -175,7 +179,6 @@ class Service
 		];
 
 		// create response
-		$response->setCache();
 		$response->setTemplate('edit.ejs', $content);
 	}
 

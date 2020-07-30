@@ -157,30 +157,30 @@
 		</div>
 	</div>
 	<% } %>
-</div>
 
-<% if(favorites.length > 0) { %>
-	<div class="row green">
-		<div class="col s12" style="padding-top:10px; padding-bottom:10px;">
-			<% favorites.forEach(function(item) { %>
-				<div class="col s3 m2 center-align">
-					<a href="#!" class="white-text" onclick="apretaste.send({command:'<%= item.name %>'})">
-						<span class="fa-stack fa-2x">
-							<i class="fas fa-circle fa-stack-2x white-text"></i>
-							<i class="fas <%= item.icon %> fa-stack-1x fa-inverse green-text"></i>
-							<% if(item.count > 0) { %>
-								<div class="icon-alert"></div>
-							<% } %>
-						</span>
-					</a>
-				</div>
+	<!-- favoritos -->
+	<% if(widgets['favoritos'] && widgets['favoritos'].length > 0) { %>
+	<div class="col s4">
+		<div class="widget">
+			<p class="label">Favoritos</p>
+			<% widgets['favoritos'].forEach(function(item) { %>
+				<a href="#!" class="white-text" onclick="apretaste.send({command:'<%= item.name %>'})">
+					<span class="fa-stack fa-1x favorite">
+						<i class="fas fa-circle fa-stack-2x white-text"></i>
+						<i class="fas <%= item.icon %> fa-stack-1x fa-inverse green-text"></i>
+						<% if(item.count > 0) { %>
+							<div class="icon-alert"></div>
+						<% } %>
+					</span>
+				</a>
 			<% }) %>
 		</div>
 	</div>
-<% } %>
+	<% } %>
+</div>
 
 <!-- FILTERS -->
-<div class="row">
+<div id="filters" class="row">
 	<div class="col s12">
 		<span class="chip tiny" data="todos" onclick="filtrar(this)"><i class="fas fa-check-circle"></i> <span class="filter">Todos</span> (<%= services.length %>)</span>
 		<span class="chip tiny" data="social" onclick="filtrar(this)"><i class="fas fa-users"></i> <span class="hidden filter">Social</span> (<%= categories['social'] %>)</span>

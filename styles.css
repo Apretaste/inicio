@@ -102,6 +102,11 @@
 	opacity: 0.2;
 }
 
+.widget .favorite {
+	margin: 1px;
+	margin-top: 10px;
+}
+
 .widget-action-block {
 	text-align: right;
 	margin-top: -30px;

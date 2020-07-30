@@ -11,6 +11,9 @@ function filtrar(e) {
 	$('.filter').addClass('hidden');
 	$(e).find('.filter').removeClass('hidden');
 
+	// scroll to the filters
+	$('html, body').animate({scrollTop: $('#filters').offset().top}, 1000);
+
 	// show the search bar
 	if(category == 'buscar') {
 		$('.service').slideDown('fast');

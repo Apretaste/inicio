@@ -147,6 +147,30 @@
 			<i class="fas fa-comment"></i> 92
 		</div>
 	</div>
+
+	<!-- favoritos -->
+	<div class="col s4 widget-action-block">
+		<i class="fas <%= widgets.indexOf('favoritos') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="favoritos" onclick="toogleWidget(this)"></i>
+		<div class="widget">
+			<p class="label">Favoritos</p>
+			<span class="fa-stack fa-1x favorite">
+				<i class="fas fa-circle fa-stack-2x white-text"></i>
+				<i class="fas fa-ankh fa-stack-1x fa-inverse green-text"></i>
+			</span>
+			<span class="fa-stack fa-1x favorite">
+				<i class="fas fa-circle fa-stack-2x white-text"></i>
+				<i class="fas fa-bone fa-stack-1x fa-inverse green-text"></i>
+			</span>
+			<span class="fa-stack fa-1x favorite">
+				<i class="fas fa-circle fa-stack-2x white-text"></i>
+				<i class="fas fa-air-freshener fa-stack-1x fa-inverse green-text"></i>
+			</span>
+			<span class="fa-stack fa-1x favorite">
+				<i class="fas fa-circle fa-stack-2x white-text"></i>
+				<i class="fas fa-bahai fa-stack-1x fa-inverse green-text"></i>
+			</span>
+		</div>
+	</div>
 </div>
 
 <!-- favoritos -->
