@@ -23,6 +23,13 @@
 	left: 45px;
 }
 
+.icon-alert.icon-favorite {
+	width: 13px;
+	height: 13px;
+	top: -2px;
+	left: 22px
+}
+
 /* DROP DOWN */
 
 .drop-down .icon {

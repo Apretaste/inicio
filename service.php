@@ -1,7 +1,9 @@
 <?php
 
+use Apretaste\Chats;
 use Apretaste\Request;
 use Apretaste\Response;
+use Apretaste\Challenges;
 use Framework\Core;
 use Framework\Database;
 
@@ -36,58 +38,89 @@ class Service
 			// social
 			if(strpos($preferences->widgets, 'social') !== false) {
 				$widgets['social'] = (Object) [
-					'amigos' => 112,
-					'ranking' => 412,
-					'mensajes' => 1652,
-					'retos' => 12,
+					'amigos' => count($request->person->getFriends()),
+					'ranking' => 999,
+					'mensajes' => Chats::unreadCount($request->person->id),
+					'retos' => count(Challenges::getList($request->person->id)),
 				];
 			}
 
 			// online
 			if(strpos($preferences->widgets, 'online') !== false) {
 				$widgets['online'] = (Object) [
-					'dias' => 112,
-					'semana' => 3,
+					'desde' => date("d/m/Y", strtotime($request->person->insertionDate)),
+					'semana' => $request->person->daysStreak,
 				];
 			}
 
 			// experiencia
 			if(strpos($preferences->widgets, 'experiencia') !== false) {
 				$widgets['experiencia'] = (Object) [
-					'experiencia' => 1142,
-					'nivel' => 'Diamante',
+					'experiencia' => $request->person->experience,
+					'nivel' => $request->person->level,
 				];
 			}
 
 			// pizarra
 			if(strpos($preferences->widgets, 'pizarra') !== false) {
+				$data = Database::queryFirst("
+					SELECT SUM(likes) AS likes, SUM(comments) AS comments
+					FROM _pizarra_notes
+					WHERE id_person = {$request->person->id}
+					AND inserted >= CURRENT_DATE");
+
+				// set widget
 				$widgets['pizarra'] = (Object) [
-					'like' => 912,
-					'comment' => 123,
+					'like' => empty($data->likes) ? 0 : $data->likes,
+					'comment' => empty($data->comments) ? 0 : $data->comments,
 				];
 			}
 
 			// amuletos
 			if(strpos($preferences->widgets, 'amuletos') !== false) {
+				// get data
+				$data = Database::query("
+					SELECT B.icon
+					FROM _amulets_person A
+					JOIN _amulets B
+					ON A.amulet_id = B.id
+					WHERE A.person_id = {$request->person->id}
+					AND A.active = 1
+					AND (A.expires IS NULL OR A.inserted <= expires)");
+
+				// set widget
 				$widgets['amuletos'] = (Object) [
-					'one' => 'camera',
-					'two' => 'heart-broken',
-					'three' => 'bomb',
+					'one' => empty($data[0]->icon) ? '' : $data[0]->icon,
+					'two' => empty($data[1]->icon) ? '' : $data[1]->icon,
+					'three' => empty($data[2]->icon) ? '' : $data[2]->icon,
 				];
 			}
 
 			// ayuda
 			if(strpos($preferences->widgets, 'ayuda') !== false) {
+				// get data
+				$data = Database::queryFirst("SELECT COUNT(id) as cnt FROM support_tickets WHERE status = 'NEW' AND from_id = {$request->person->id}");
+
+				// set widget
 				$widgets['ayuda'] = (Object) [
-					'tickets' => 123,
+					'tickets' => $data->cnt,
 				];
 			}
 
 			// rifa
 			if(strpos($preferences->widgets, 'rifa') !== false) {
+				// get the current raffle deadline
+				$data = Database::queryFirst('SELECT end_date FROM raffle WHERE CURRENT_TIMESTAMP BETWEEN start_date AND end_date ORDER BY start_date');
+				$deadline = empty($data->end_date) ? '-' : $data->end_date;
+
+				// get number of tickets by the user
+				$data = Database::queryFirst("SELECT COUNT(ticket_id) AS cnt FROM ticket WHERE raffle_id is NULL AND person_id = '{$request->person->id}'");
+				$tickets = (int) $data->cnt;
+
+				// set widgets
 				$widgets['rifa'] = (Object) [
-					'fecha' => 'Nov 12',
-					'tickets' => 123,
+					'fecha' => $deadline,
+					'tickets' => $tickets,
 				];
 			}
 
@@ -113,10 +146,22 @@ class Service
 
 			// noticia
 			if(strpos($preferences->widgets, 'noticia') !== false) {
+				// get data
+				$data = Database::queryFirst("
+					SELECT A.id, A.title, A.comments, B.caption AS channel
+					FROM _news_articles A
+					JOIN _news_media B
+					ON A.media_id = B.id
+					WHERE A.inserted >= DATE_ADD(CURRENT_DATE, INTERVAL -3 DAY)
+					ORDER BY A.comments DESC 
+					LIMIT 1");
+
+				// set widget
 				$widgets['noticia'] = (Object) [
-					'titulo' => trim(substr('Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incident', 0, 80)) . '...',
-					'canal' => 'Diario de Cuba',
-					'comment' => 123,
+					'id' => $data->id,
+					'titulo' => trim(substr($data->title, 0, 80)) . '...',
+					'canal' => $data->channel,
+					'comment' => $data->comments,
 				];
 			}
 
@@ -152,7 +197,7 @@ class Service
 		];
 
 		// create response
-		$response->setCache('month');
+		$response->setCache();
 		$response->setTemplate('home.ejs', $content);
 	}
 
