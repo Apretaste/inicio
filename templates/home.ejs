@@ -32,7 +32,8 @@
 	<% if(widgets['online']) { %>
 	<div class="col s4">
 		<div class="widget">
-			<p class="label">Usuario desde <span class="white-text"><%= widgets['online'].desde %></span></p>
+			<p class="label">Activo desde</p> 
+			<span class="white-text"><%= widgets['online'].desde %></span>
 			<div class="division"></div>
 			<i class="fas fa-circle fa-xs" style="margin-right:5px;"></i>
 			<i class="fas <%= widgets['online'].semana >=2 ? 'fa-circle' : 'fa-circle-notch' %> fa-xs" style="margin-right:5px;"></i>
@@ -52,8 +53,8 @@
 			<p class="label">Experiencia</p>
 			<i class="fas fa-bolt"></i> <%= widgets['experiencia'].experiencia %>
 			<div class="division"></div>
-			<p class="label">Nivel</p>
-			<i class="fas fa-gem"></i> <%= widgets['experiencia'].nivel %>
+			<i class="fas fa-gem"></i><br>
+			<%= widgets['experiencia'].nivel %>
 		</div>
 	</div>
 	<% } %>
