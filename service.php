@@ -86,7 +86,7 @@ class Service
 					ON A.amulet_id = B.id
 					WHERE A.person_id = {$request->person->id}
 					AND A.active = 1
-					AND (A.expires IS NULL OR A.inserted <= expires)");
+					AND (A.expires IS NULL OR A.expires > CURRENT_TIMESTAMP)");
 
 				// set widget
 				$widgets['amuletos'] = (Object) [
