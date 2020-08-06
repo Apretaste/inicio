@@ -124,12 +124,19 @@
 	<div class="col s4" onclick="apretaste.send({command:'BOLITA'})">
 		<div class="widget">
 			<p class="label">Bolita</p>
+			<small><%= moment(widgets['bolita'].date).format("MMMM D") %></small>
 			<div class="division"></div>
 			<span class="lime-text">
-				<i class="fas fa-sun"></i> <b>#<%= widgets['bolita'].day_one %></b> #<%= widgets['bolita'].day_two %> #<%= widgets['bolita'].day_three %>
+				<i class="fas fa-sun"></i>
+				<%= widgets['bolita'].day_papeleta %><b><%= widgets['bolita'].day_fijo %></b>
+				<%= widgets['bolita'].day_corrido1 %> 
+				<%= widgets['bolita'].day_corrido2 %>
 			</span>
 			<span class="blue-grey-text text-darken-4">
-				<i class="fas fa-moon"></i> <b>#<%= widgets['bolita'].night_one %></b> #<%= widgets['bolita'].night_two %> #<%= widgets['bolita'].night_three %>
+				<i class="fas fa-moon"></i> 
+				<%= widgets['bolita'].night_papeleta %><b><%= widgets['bolita'].night_fijo %></b>
+				<%= widgets['bolita'].night_corrido1 %> 
+				<%= widgets['bolita'].night_corrido2 %>
 			</span>
 		</div>
 	</div>

@@ -33,13 +33,13 @@ class Service
 		// do not get widget data for guest users
 		if(empty($request->person->isGuest)) {
 			// get list of widgets
-			$preferences = Database::queryFirst("SELECT widgets, favorite_services FROM person WHERE id = {$request->person->id}");
+			$preferences = Database::queryFirst("SELECT widgets, favorite_services, week_rank FROM person WHERE id = {$request->person->id}");
 
 			// social
 			if(strpos($preferences->widgets, 'social') !== false) {
 				$widgets['social'] = (Object) [
 					'amigos' => count($request->person->getFriends()),
-					'ranking' => 999,
+					'ranking' => $preferences->week_rank,
 					'mensajes' => Chats::unreadCount($request->person->id),
 					'retos' => count(Challenges::getList($request->person->id)),
 				];
@@ -126,14 +126,26 @@ class Service
 
 			// bolita
 			if(strpos($preferences->widgets, 'bolita') !== false) {
-				$widgets['bolita'] = (Object) [
-					'day_one' => '12',
-					'day_two' => '100',
-					'day_three' => '1',
-					'night_one' => '23',
-					'night_two' => '65',
-					'night_three' => '98',
-				];
+				// get cache
+				$cacheFile = TEMP_PATH . 'cache/bolita_today_' . date('Ymd') . '.tmp';
+
+				if (file_exists($cacheFile)) {
+					// get data
+					$data = unserialize(file_get_contents($cacheFile));
+
+					// set widgets
+					$widgets['bolita'] = (Object) [
+						'date' => $data['pick3']['Midday']['date'],
+						'day_papeleta' => $data['pick3']['Midday'][1],
+						'day_fijo' => $data['pick3']['Midday'][2] . $data['pick3']['Midday'][3],
+						'day_corrido1' => $data['pick4']['Midday'][1] . $data['pick4']['Midday'][2],
+						'day_corrido2' => $data['pick4']['Midday'][3] . $data['pick4']['Midday'][4],
+						'night_papeleta' => $data['pick3']['Evening'][1],
+						'night_fijo' => $data['pick3']['Evening'][2] . $data['pick3']['Evening'][3],
+						'night_corrido1' => $data['pick4']['Evening'][1] . $data['pick4']['Evening'][2],
+						'night_corrido2' => $data['pick4']['Evening'][3] . $data['pick4']['Evening'][4]
+					];
+				}
 			}
 
 			// piropazo
@@ -157,12 +169,14 @@ class Service
 					LIMIT 1");
 
 				// set widget
-				$widgets['noticia'] = (Object) [
-					'id' => $data->id,
-					'titulo' => trim(substr($data->title, 0, 80)) . '...',
-					'canal' => $data->channel,
-					'comment' => $data->comments,
-				];
+				if($data) {
+					$widgets['noticia'] = (Object) [
+						'id' => $data->id,
+						'titulo' => trim(substr($data->title, 0, 80)) . '...',
+						'canal' => $data->channel,
+						'comment' => $data->comments,
+					];
+				}
 			}
 
 			// favoritos
