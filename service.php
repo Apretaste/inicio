@@ -150,9 +150,22 @@ class Service
 
 			// piropazo
 			if(strpos($preferences->widgets, 'piropazo') !== false) {
+				// get data
+				$parejas = Database::queryFirst("
+					SELECT COUNT(id) AS cnt
+					FROM _piropazo_relationships 
+					WHERE status = 'match'
+					AND (id_from = {$request->person->id} OR id_to = {$request->person->id})");
+
+				$likes = Database::queryFirst("
+					SELECT likes AS cnt
+					FROM _piropazo_people 
+					WHERE id_person = {$request->person->id}");
+
+				// set widgets
 				$widgets['piropazo'] = (Object) [
-					'parejas' => 12,
-					'likes' => 123,
+					'parejas' => $parejas->cnt,
+					'likes' => empty($likes->cnt) ? 0 : $likes->cnt,
 				];
 			}
 
