@@ -126,18 +126,12 @@
 			<p class="label">Bolita</p>
 			<small><%= moment(widgets['bolita'].date).format("MMMM D") %></small>
 			<div class="division"></div>
-			<span class="lime-text">
-				<i class="fas fa-sun"></i>
-				<%= widgets['bolita'].day_papeleta %><b><%= widgets['bolita'].day_fijo %></b>
-				<%= widgets['bolita'].day_corrido1 %> 
-				<%= widgets['bolita'].day_corrido2 %>
-			</span>
-			<span class="blue-grey-text text-darken-4">
-				<i class="fas fa-moon"></i> 
-				<%= widgets['bolita'].night_papeleta %><b><%= widgets['bolita'].night_fijo %></b>
-				<%= widgets['bolita'].night_corrido1 %> 
-				<%= widgets['bolita'].night_corrido2 %>
-			</span>
+			<div class="lime-text">
+				<%= widgets['bolita'].day_papeleta %><%= widgets['bolita'].day_fijo %>-<%= widgets['bolita'].day_corrido1 %>-<%= widgets['bolita'].day_corrido2 %>
+			</div>
+			<div class="blue-grey-text text-darken-4">
+				<%= widgets['bolita'].night_papeleta %><%= widgets['bolita'].night_fijo %>-<%= widgets['bolita'].night_corrido1 %>-<%= widgets['bolita'].night_corrido2 %>
+			</div>
 		</div>
 	</div>
 	<% } %>
