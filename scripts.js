@@ -62,7 +62,10 @@ function cleanUpSpecialChars(str) {
 }
 
 // activate or deactivate widget
-function toogleWidget(widget) {
+function toogleWidget(e) {
+	// get the check object
+	var widget = $(e).find('.check');
+
 	// change the icon
 	if($(widget).hasClass('fa-check-circle')) {
 		$(widget).removeClass('fa-check-circle').addClass('fa-circle');
