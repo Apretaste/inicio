@@ -126,26 +126,15 @@ class Service
 
 			// bolita
 			if(strpos($preferences->widgets, 'bolita') !== false) {
-				// get cache
-				$cacheFile = TEMP_PATH . 'cache/bolita_today_' . date('Ymd') . '.tmp';
+				// get data
+				$data = Database::queryFirst("
+					SELECT 
+						corrida, papeleta_day, fijo_day, corrido1_day, corrido2_day, 
+						papeleta_night, fijo_night, corrido1_night, corrido2_night
+				 	FROM _bolita_results ORDER BY corrida DESC");
 
-				if (file_exists($cacheFile)) {
-					// get data
-					$data = unserialize(file_get_contents($cacheFile));
-
-					// set widgets
-					$widgets['bolita'] = (Object) [
-						'date' => $data['pick3']['Midday']['date'],
-						'day_papeleta' => $data['pick3']['Midday'][1],
-						'day_fijo' => $data['pick3']['Midday'][2] . $data['pick3']['Midday'][3],
-						'day_corrido1' => $data['pick4']['Midday'][1] . $data['pick4']['Midday'][2],
-						'day_corrido2' => $data['pick4']['Midday'][3] . $data['pick4']['Midday'][4],
-						'night_papeleta' => $data['pick3']['Evening'][1],
-						'night_fijo' => $data['pick3']['Evening'][2] . $data['pick3']['Evening'][3],
-						'night_corrido1' => $data['pick4']['Evening'][1] . $data['pick4']['Evening'][2],
-						'night_corrido2' => $data['pick4']['Evening'][3] . $data['pick4']['Evening'][4]
-					];
-				}
+				// set widgets
+				$widgets['bolita'] = $data;
 			}
 
 			// piropazo
