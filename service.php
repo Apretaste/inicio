@@ -4,7 +4,6 @@ use Apretaste\Chats;
 use Apretaste\Request;
 use Apretaste\Response;
 use Apretaste\Challenges;
-use Framework\Core;
 use Framework\Database;
 
 class Service
@@ -16,7 +15,7 @@ class Service
 	 * @param Response $response
 	 * @author salvipascual
 	 */
-	public function _main (Request $request, Response $response)
+	public function _main(Request $request, Response $response)
 	{
 		// get list of services
 		$services = Database::query("
@@ -31,22 +30,24 @@ class Service
 		$widgets = [];
 
 		// do not get widget data for guest users
-		if(empty($request->person->isGuest)) {
+		if (empty($request->person->isGuest)) {
 			// get list of widgets
 			$preferences = Database::queryFirst("SELECT widgets, favorite_services, week_rank FROM person WHERE id = {$request->person->id}");
 
 			// social
-			if(strpos($preferences->widgets, 'social') !== false) {
+			if (strpos($preferences->widgets, 'social') !== false) {
 				$widgets['social'] = (Object) [
 					'amigos' => count($request->person->getFriends()),
 					'ranking' => $preferences->week_rank,
 					'mensajes' => Chats::unreadCount($request->person->id),
-					'retos' => count(Challenges::getList($request->person->id)),
+					'retos' => count(array_filter(Challenges::getList($request->person->id), static function ($ch) {
+						return (int) $ch->done == 0;
+					})),
 				];
 			}
 
 			// online
-			if(strpos($preferences->widgets, 'online') !== false) {
+			if (strpos($preferences->widgets, 'online') !== false) {
 				$widgets['online'] = (Object) [
 					'desde' => date("d/m/Y", strtotime($request->person->insertionDate)),
 					'semana' => $request->person->daysStreak,
@@ -54,7 +55,7 @@ class Service
 			}
 
 			// experiencia
-			if(strpos($preferences->widgets, 'experiencia') !== false) {
+			if (strpos($preferences->widgets, 'experiencia') !== false) {
 				$widgets['experiencia'] = (Object) [
 					'experiencia' => $request->person->experience,
 					'nivel' => $request->person->level,
@@ -62,7 +63,7 @@ class Service
 			}
 
 			// pizarra
-			if(strpos($preferences->widgets, 'pizarra') !== false) {
+			if (strpos($preferences->widgets, 'pizarra') !== false) {
 				$data = Database::queryFirst("
 					SELECT SUM(likes) AS likes, SUM(comments) AS comments
 					FROM _pizarra_notes
@@ -77,7 +78,7 @@ class Service
 			}
 
 			// amuletos
-			if(strpos($preferences->widgets, 'amuletos') !== false) {
+			if (strpos($preferences->widgets, 'amuletos') !== false) {
 				// get data
 				$data = Database::query("
 					SELECT B.icon
@@ -97,7 +98,7 @@ class Service
 			}
 
 			// ayuda
-			if(strpos($preferences->widgets, 'ayuda') !== false) {
+			if (strpos($preferences->widgets, 'ayuda') !== false) {
 				// get data
 				$data = Database::queryFirst("SELECT COUNT(id) as cnt FROM support_tickets WHERE status = 'NEW' AND from_id = {$request->person->id}");
 
@@ -108,7 +109,7 @@ class Service
 			}
 
 			// rifa
-			if(strpos($preferences->widgets, 'rifa') !== false) {
+			if (strpos($preferences->widgets, 'rifa') !== false) {
 				// get the current raffle deadline
 				$data = Database::queryFirst('SELECT end_date FROM raffle WHERE CURRENT_TIMESTAMP BETWEEN start_date AND end_date ORDER BY start_date');
 				$deadline = empty($data->end_date) ? '-' : $data->end_date;
@@ -125,7 +126,7 @@ class Service
 			}
 
 			// bolita
-			if(strpos($preferences->widgets, 'bolita') !== false) {
+			if (strpos($preferences->widgets, 'bolita') !== false) {
 				// get data
 				$data = Database::queryFirst("
 					SELECT 
@@ -138,7 +139,7 @@ class Service
 			}
 
 			// piropazo
-			if(strpos($preferences->widgets, 'piropazo') !== false) {
+			if (strpos($preferences->widgets, 'piropazo') !== false) {
 				// get data
 				$parejas = Database::queryFirst("
 					SELECT COUNT(id) AS cnt
@@ -159,7 +160,7 @@ class Service
 			}
 
 			// noticia
-			if(strpos($preferences->widgets, 'noticia') !== false) {
+			if (strpos($preferences->widgets, 'noticia') !== false) {
 				// get data
 				$data = Database::queryFirst("
 					SELECT A.id, A.title, A.comments, B.caption AS channel
@@ -171,7 +172,7 @@ class Service
 					LIMIT 1");
 
 				// set widget
-				if($data) {
+				if ($data) {
 					$widgets['noticia'] = (Object) [
 						'id' => $data->id,
 						'titulo' => trim(substr($data->title, 0, 80)) . '...',
@@ -182,10 +183,10 @@ class Service
 			}
 
 			// favoritos
-			if(strpos($preferences->widgets, 'favoritos') !== false) {
+			if (strpos($preferences->widgets, 'favoritos') !== false) {
 				$widgets['favoritos'] = [];
 				foreach ($services as $item) {
-					if(strpos($preferences->favorite_services, $item->name) !== false) {
+					if (strpos($preferences->favorite_services, $item->name) !== false) {
 						$widgets['favoritos'][] = $item;
 					}
 				}
@@ -224,7 +225,7 @@ class Service
 	 * @param Response $response
 	 * @author salvipascual
 	 */
-	public function _editar (Request $request, Response $response)
+	public function _editar(Request $request, Response $response)
 	{
 		// get list of widgets
 		$preferences = Database::queryFirst("SELECT widgets, favorite_services FROM person WHERE id = {$request->person->id}");
@@ -250,7 +251,7 @@ class Service
 	 * @param Response $response
 	 * @author salvipascual
 	 */
-	public function _salvar (Request $request, Response $response)
+	public function _salvar(Request $request, Response $response)
 	{
 		// save the widgets
 		$widgets = implode(',', $request->input->data->widgets);
