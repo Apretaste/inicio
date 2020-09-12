@@ -263,6 +263,8 @@ class Service
 			SET widgets = '$widgets', favorite_services = '$favorites'
 			WHERE id = {$request->person->id}");
 
+		Challenges::complete('edit-widgets', $request->person->id);
+
 		// create response
 		return $this->_main($request, $response);
 	}
