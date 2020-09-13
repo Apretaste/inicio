@@ -112,7 +112,7 @@ class Service
 			if (strpos($preferences->widgets, 'rifa') !== false) {
 				// get the current raffle deadline
 				$data = Database::queryFirst('SELECT end_date FROM raffle WHERE CURRENT_TIMESTAMP BETWEEN start_date AND end_date ORDER BY start_date');
-				$deadline = empty($data->end_date) ? '-' : $data->end_date;
+				$deadline = empty($data->end_date) ? '' : $data->end_date;
 
 				// get number of tickets by the user
 				$data = Database::queryFirst("SELECT COUNT(ticket_id) AS cnt FROM ticket WHERE raffle_id is NULL AND person_id = '{$request->person->id}'");
@@ -175,7 +175,7 @@ class Service
 				if ($data) {
 					$widgets['noticia'] = (Object) [
 						'id' => $data->id,
-						'titulo' => trim(substr($data->title, 0, 80)) . '...',
+						'titulo' => trim(substr(quoted_printable_decode($data->title), 0, 80)) . '...',
 						'canal' => $data->channel,
 						'comment' => $data->comments,
 					];

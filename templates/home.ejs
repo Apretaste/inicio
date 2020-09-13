@@ -114,7 +114,13 @@
 		<div class="widget">
 			<p>Rifa</p>
 			<div class="division"></div>
-			<p class="label"><%= moment(widgets['rifa'].fecha).format("MMMM D") %></p>
+			<p class="label">
+				<% if(widgets['rifa'].fecha) { %>
+					<%= moment(widgets['rifa'].fecha).format("MMM D") %>
+				<% } else { %>
+					No hay rifas
+				<% } %>
+			</p>
 			<i class="fas fa-ticket-alt"></i> <%= widgets['rifa'].tickets %>
 		</div>
 	</div>
