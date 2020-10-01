@@ -100,7 +100,7 @@ class Service
 			// ayuda
 			if (strpos($preferences->widgets, 'ayuda') !== false) {
 				// get data
-				$data = Database::queryFirst("SELECT COUNT(id) as cnt FROM support_tickets WHERE status = 'NEW' AND from_id = {$request->person->id}");
+				$data = Database::queryFirst("SELECT COUNT(id) as cnt FROM support_tickets WHERE status <> 'CLOSED' AND person_id = {$request->person->id}");
 
 				// set widget
 				$widgets['ayuda'] = (Object) [
