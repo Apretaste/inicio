@@ -178,7 +178,7 @@ class Service
 				if ($data) {
 					$widgets['noticia'] = (Object) [
 						'id' => $data->id,
-						'titulo' => trim(substr(quoted_printable_decode($data->title), 0, 80)) . '...',
+						'titulo' => trim(substr(quoted_printable_decode($data->title), 0, 60)) . '...',
 						'canal' => $data->channel,
 						'comment' => $data->comments,
 					];
