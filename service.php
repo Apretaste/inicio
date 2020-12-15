@@ -19,16 +19,17 @@ class Service
 	{
 		// get list of services
 		$services = Database::query("
-			SELECT 
+			SELECT
 				A.name, A.caption, A.icon, A.category, 
 				IFNULL(B.count, 0) AS count, 
 				IF(C.id IS NULL, 0, 1) AS favorite
 			FROM service A
-			LEFT JOIN service_alerts B
+			LEFT JOIN (SELECT * FROM service_alerts WHERE person_id = {$request->person->id}) B
 			ON A.name = B.name
-			LEFT JOIN service_favorite C 
+			LEFT JOIN (SELECT * FROM service_favorite WHERE person_id = {$request->person->id}) C
 			ON A.name = C.service
-			WHERE A.listed = 1 AND A.active = 1
+			WHERE A.listed = 1 
+			AND A.active = 1
 			ORDER BY A.name ASC");
 
 		// create categories and favorites
