@@ -147,46 +147,6 @@
 			<i class="fas fa-comment"></i> 92
 		</div>
 	</div>
-
-	<!-- favoritos -->
-	<div class="col s4 widget-action-block" onclick="toogleWidget(this)">
-		<i class="check fas <%= widgets.indexOf('favoritos') == -1 ? 'fa-circle' : 'fa-check-circle' %> fa-2x grey-text text-darken-4 widget-action" data="favoritos"></i>
-		<div class="widget">
-			<p class="label">Favoritos</p>
-			<span class="fa-stack fa-1x favorite">
-				<i class="fas fa-circle fa-stack-2x white-text"></i>
-				<i class="fas fa-ankh fa-stack-1x fa-inverse green-text"></i>
-			</span>
-			<span class="fa-stack fa-1x favorite">
-				<i class="fas fa-circle fa-stack-2x white-text"></i>
-				<i class="fas fa-bone fa-stack-1x fa-inverse green-text"></i>
-			</span>
-			<span class="fa-stack fa-1x favorite">
-				<i class="fas fa-circle fa-stack-2x white-text"></i>
-				<i class="fas fa-air-freshener fa-stack-1x fa-inverse green-text"></i>
-			</span>
-			<span class="fa-stack fa-1x favorite">
-				<i class="fas fa-circle fa-stack-2x white-text"></i>
-				<i class="fas fa-bahai fa-stack-1x fa-inverse green-text"></i>
-			</span>
-		</div>
-	</div>
-</div>
-
-<!-- favoritos -->
-<div class="row">
-	<div class="col s12">
-		<div class="input-field col s12">
-			<select id="favoritos" multiple>
-				<option value="" disabled>Servicios favoritos</option>
-				<% services.forEach(function(item) { %>
-					<% var selected = favorites && favorites.indexOf(item.name) !== -1 ? 'selected' : '' %>
-					<option <%= selected %> value="<%= item.name %>" ><%= item.caption %></option>
-				<% }) %>
-			</select>
-			<label>Escoja sus cuatro servicios favoritos</label>
-		</div>
-	</div>
 </div>
 
 <div class="bottom-space"></div>

@@ -1,3 +1,16 @@
+/* HELPERS */
+
+.hidden {
+	display: none;
+}
+
+/* VERTICAL SCROLL */
+
+.scrolleable {
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
 /* FLOAT BUTTON */
 
 .bottom-space {
@@ -145,10 +158,6 @@
 	line-height: 20px;
 }
 
-.chip .hidden {
-	display: none;
-}
-
 .chip input {
 	margin-left: 5px;
 }
@@ -161,4 +170,18 @@
 
 .green-text {
 	color: #52a43f !important;
+}
+
+/* FAVORITE */
+
+.favorite .icon-img {
+	color: #52a43f !important;
+}
+
+.favorite .icon-text {
+	color: #52a43f !important;
+}
+
+.empty-note {
+	padding: 0px 20px;
 }

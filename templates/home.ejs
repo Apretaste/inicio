@@ -167,55 +167,42 @@
 		</div>
 	</div>
 	<% } %>
-
-	<!-- favoritos -->
-	<% if(widgets['favoritos'] && widgets['favoritos'].length > 0) { %>
-	<div class="col s4">
-		<div class="widget">
-			<p class="label">Favoritos</p>
-			<% widgets['favoritos'].forEach(function(item) { %>
-				<a href="#!" class="white-text" onclick="apretaste.send({command:'<%= item.name %>'})">
-					<span class="fa-stack fa-1x favorite">
-						<i class="fas fa-circle fa-stack-2x white-text"></i>
-						<i class="fas <%= item.icon %> fa-stack-1x fa-inverse green-text"></i>
-						<% if(item.count > 0) { %>
-							<div class="icon-alert icon-favorite"></div>
-						<% } %>
-					</span>
-				</a>
-			<% }) %>
-		</div>
-	</div>
-	<% } %>
 </div>
 
 <!-- FILTERS -->
 <div id="filters" class="row">
-	<div class="col s12">
-		<span class="chip tiny" data="todos" onclick="filtrar(this)"><i class="fas fa-check-circle"></i> <span class="filter">Todos</span> (<%= services.length %>)</span>
-		<span class="chip tiny" data="social" onclick="filtrar(this)"><i class="fas fa-users"></i> <span class="hidden filter">Social</span> (<%= categories['social'] %>)</span>
-		<span class="chip tiny" data="informativo" onclick="filtrar(this)"><i class="fas fa-book-open"></i> <span class="hidden filter">Informativo</span> (<%= categories['informativo'] %>)</span>
-		<span class="chip tiny" data="negocios" onclick="filtrar(this)"><i class="fas fa-money-bill"></i> <span class="hidden filter">Negocios</span> (<%= categories['negocios'] %>)</span>
-		<span class="chip tiny" data="ocio" onclick="filtrar(this)"><i class="fas fa-grin-squint"></i> <span class="hidden filter">Ocio</span> (<%= categories['ocio'] %>)</span>
-		<span class="chip tiny" data="utiles" onclick="filtrar(this)"><i class="fas fa-calculator"></i> <span class="hidden filter">Útiles</span> (<%= categories['utiles'] %>)</span>
-		<span class="chip tiny" data="buscar" onclick="filtrar(this)"><i class="fas fa-search"></i> <span class="hidden filter"><input id="buscar" onkeyup="buscar()" type=""></span></span>
+	<div class="col s12 scrolleable">
+		<span id="favoritos" class="chip tiny" onclick="filtrar('favoritos')"><i class="fas fa-star"></i> <span class="filter">Favoritos</span> (<span id="favorite-count"><%= favorites %></span>)</span>
+		<span id="todos" class="chip tiny" onclick="filtrar('todos')"><i class="fas fa-check-circle"></i> <span class="filter">Todos</span> (<%= services.length %>)</span>
+		<span id="buscar" class="chip tiny" onclick="filtrar('buscar')"><i class="fas fa-search"></i> <span class="filter"><input onkeyup="buscar()" type=""></span></span>
+		<span id="social" class="chip tiny" onclick="filtrar('social')"><i class="fas fa-users"></i> <span class="filter">Social</span> (<%= categories['social'] %>)</span>
+		<span id="informativo" class="chip tiny" onclick="filtrar('informativo')"><i class="fas fa-book-open"></i> <span class="filter">Informativo</span> (<%= categories['informativo'] %>)</span>
+		<span id="negocios" class="chip tiny" onclick="filtrar('negocios')"><i class="fas fa-money-bill"></i> <span class="filter">Negocios</span> (<%= categories['negocios'] %>)</span>
+		<span id="ocio" class="chip tiny" onclick="filtrar('ocio')"><i class="fas fa-grin-squint"></i> <span class="filter">Ocio</span> (<%= categories['ocio'] %>)</span>
+		<span id="utiles" class="chip tiny" onclick="filtrar('utiles')"><i class="fas fa-calculator"></i> <span class="filter">Útiles</span> (<%= categories['utiles'] %>)</span>
 	</div>
 </div>
 
 <!-- SERVICES -->
 <div class="row">
 	<% services.forEach(function(item) { %>
-		<div class="col s3 m2 center-align service <%= item.category %>" data-value="<%= item.caption %>">
-			<a href="#!" class="green-text" onclick="apretaste.send({command:'<%= item.name %>'})">
+		<% var favorite = item.favorite ? 'favorite' : '' %>
+		<div id="<%= item.name %>" class="col s3 m2 center-align service hidden <%= item.category %> long-press <%= favorite %>" data-long-press-delay="500" data-value="<%= item.caption %>">
+			<a href="#!" onclick="apretaste.send({command:'<%= item.name %>'})">
 				<span class="fa-stack fa-2x">
-					<i class="fas fa-circle fa-stack-2x green-text"></i>
+					<i class="icon-img fas fa-circle fa-stack-2x green-text text-lighten-1"></i>
 					<i class="<%= item.icon %> fa-stack-1x fa-inverse"></i>
 					<% if(item.count > 0) { %>
 						<div class="icon-alert"></div>
 					<% } %>
 				</span>
-				<p class="icon-text green-text"><%= item.caption %></p>
+				<p class="icon-text green-text text-lighten-1"><%= item.caption %></p>
 			</a>
 		</div>
 	<% }) %>
+
+	<!-- NO FAVORITES -->
+	<div id="empty-note" class="col s12 center-align hidden %>">
+		<p class="grey-text empty-note">No tiene servicios favoritos. Mantenga presionado un ícono para hacerlo favorito.</p>
+	</div>
 </div>
