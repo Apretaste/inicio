@@ -21,6 +21,7 @@ $(document).ready(function(){
 	});
 
 	// filter services
+	var selectedCategory = '';
 	if(typeof favorites != 'undefined') {
 		var filter = favorites ? 'favoritos' : 'todos';
 		filtrar(filter);
@@ -29,6 +30,9 @@ $(document).ready(function(){
 
 // filter by service category
 function filtrar(category) {
+	// select category
+	selectedCategory = category;
+
 	// highlight the category
 	$('.filter').addClass('hidden');
 	$('#'+category).find('.filter').removeClass('hidden');
@@ -133,6 +137,11 @@ function toggleFavorite(service) {
 		data: {'service': service},
 		'redirect': false
 	});
+
+	// hide icon if you are in the favorites tab
+	if(selectedCategory == 'favoritos') {
+		$('#'+service).fadeOut();
+	}
 
 	// change the favorite class
 	$('#'+service).toggleClass('favorite');
