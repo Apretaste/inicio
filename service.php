@@ -3,6 +3,7 @@
 use Apretaste\Chats;
 use Apretaste\Request;
 use Apretaste\Response;
+use Apretaste\Tutorial;
 use Apretaste\Challenges;
 use Framework\Database;
 
@@ -260,6 +261,9 @@ class Service
 		// complete challenge
 		Challenges::complete('edit-widgets', $request->person->id);
 
+		// complete tutorial
+		Tutorial::complete($request->person->id, 'edit_widgets');
+
 		// create response
 		return $this->_main($request, $response);
 	}
@@ -293,6 +297,9 @@ class Service
 			Database::query("
 				INSERT INTO service_favorite (person_id, service) 
 				VALUES ({$request->person->id}, '{$request->input->data->service}')");
+
+			// complete tutorial
+			Tutorial::complete($request->person->id, 'make_favorite');
 		}
 	}
 }
