@@ -46,7 +46,8 @@ function filtrar(category) {
 	// show the search bar
 	if(category == 'buscar') {
 		$('.service').slideDown('fast');
-		$('#buscar input').focus();
+		$('#todosBtn').hide();
+		$('#buscar input').val('').focus();
 		return false;
 	}
 
@@ -61,6 +62,7 @@ function filtrar(category) {
 	// show all categories
 	if(category == 'todos') {
 		$('.service').slideDown('fast');
+		$('#todosBtn').hide();
 	}
 
 	// filter by category
@@ -75,7 +77,7 @@ function buscar() {
 	// get text to search by
 	var text = cleanUpSpecialChars($('#buscar input').val().toLowerCase());
 
-	$('.service').show().each(function(i, e) {
+	$('.service').not('#todosBtn').show().each(function(i, e) {
 		// get the caption
 		var caption = cleanUpSpecialChars($(e).attr('data-value').toLowerCase());
 
@@ -153,12 +155,15 @@ function toggleFavorite(service) {
 // update favoritos count
 function updateFavoriteCount() {
 	// get the favorite count
-	var favoriteCount = $('.favorite').length;
+	var favoriteCount = $('.favorite').not('#todosBtn').length;
 
 	// update the counter
 	$('#favorite-count').html(favoriteCount);
 
 	// show/hide message
 	if(favoriteCount > 0) $('#empty-note').hide();
-	else $('#empty-note').show();
+	else {
+		$('#empty-note').show();
+		$('#todosBtn').hide();
+	}
 }
