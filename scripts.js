@@ -137,7 +137,8 @@ function toggleFavorite(service) {
 	apretaste.send({
 		command: 'INICIO FAVORITO',
 		data: {'service': service},
-		redirect: false
+		redirect: false,
+		showLoading: false
 	});
 
 	// hide icon if you are in the favorites tab
