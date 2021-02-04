@@ -21,7 +21,7 @@ class Service
 		// get list of services
 		$services = Database::query("
 			SELECT
-				A.name, A.caption, A.icon, A.category, 
+				A.name, A.caption, A.icon, A.category, A.description,
 				IFNULL(B.count, 0) AS count, 
 				IF(C.id IS NULL, 0, 1) AS favorite
 			FROM service A

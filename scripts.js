@@ -11,12 +11,16 @@
 $(document).ready(function(){
 	// add select on start
 	$('select').formSelect();
+	$('.modal').modal();
 
 	// listen for the long-press event
 	$('.long-press').each(function() {
 		this.addEventListener('long-press', function(e) {
-			e.preventDefault();
-			toggleFavorite($(this).attr('id'));
+			$('#favoriteModal').attr('data-value', $(this).attr('id'));
+			$('#favoriteService').html($(this).attr('data-value'));
+			$('#favoriteDesc').html($(this).attr('data-description'));
+			$('#favoriteSwitch').prop('checked', $(this).hasClass('favorite'));
+			$('#favoriteModal').modal('open');
 		});
 	});
 
@@ -141,9 +145,10 @@ function toggleFavorite(service) {
 		showLoading: false
 	});
 
-	// hide icon if you are in the favorites tab
+	// show or hide icon if you are in the favorites tab
 	if(selectedCategory == 'favoritos') {
-		$('#'+service).fadeOut();
+		if($('#'+service).hasClass('favorite')) $('#'+service).fadeOut();
+		else $('#'+service).fadeIn();
 	}
 
 	// change the favorite class

@@ -187,7 +187,7 @@
 <div class="row">
 	<% services.forEach(function(item) { %>
 		<% var favorite = item.favorite ? 'favorite' : '' %>
-		<div id="<%= item.name %>" class="col s3 m2 center-align service hidden <%= item.category %> long-press <%= favorite %>" data-long-press-delay="500" data-value="<%= item.caption %>">
+		<div id="<%= item.name %>" class="col s3 m2 center-align service hidden <%= item.category %> long-press <%= favorite %>" data-long-press-delay="500" data-value="<%= item.caption %>" data-description="<%= item.description %>">
 			<a href="#!" onclick="apretaste.send({command:'<%= item.name %>'})">
 				<span class="fa-stack fa-2x">
 					<i class="icon-img fas fa-circle fa-stack-2x green-text text-lighten-1"></i>
@@ -214,5 +214,23 @@
 	<!-- NO FAVORITES -->
 	<div id="empty-note" class="col s12 center-align hidden %>">
 		<p class="grey-text empty-note">No tiene servicios favoritos. Mantenga presionado un ícono para hacerlo favorito.</p>
+	</div>
+</div>
+
+<!-- FAVORITE MODAL -->
+<div id="favoriteModal" class="modal" data-value="">
+	<div class="modal-content">
+		<h4 id="favoriteService">Escuela</h4>
+		<p id="favoriteDesc">A bunch of text A bunch of text A bunch of text A bunch of text</p>
+		<div class="switch" style="z-index: 999">
+			<label>
+				Hacer favorito
+				<input id="favoriteSwitch" type="checkbox" onchange="toggleFavorite($('#favoriteModal').attr('data-value'))">
+				<span class="lever"></span>
+			</label>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
 	</div>
 </div>
