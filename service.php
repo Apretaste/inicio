@@ -221,7 +221,7 @@ class Service
 		];
 
 		// create response
-		$response->setCache();
+		//$response->setCache();
 		$response->setTemplate('home.ejs', $content);
 	}
 
