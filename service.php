@@ -70,7 +70,7 @@ class Service
 		if (strpos($preferences->widgets, 'online') !== false) {
 			$widgets['online'] = (Object) [
 				'desde' => date("d/m/Y", strtotime($request->person->insertionDate)),
-				'semana' => $request->person->daysStreak,
+				'semana' => $request->person->getDaysStreakPeriod(7)
 			];
 		}
 
@@ -84,16 +84,23 @@ class Service
 
 		// pizarra
 		if (strpos($preferences->widgets, 'pizarra') !== false) {
-			$data = Database::queryFirst("
-				SELECT SUM(likes) AS likes, SUM(comments) AS comments
-				FROM _pizarra_notes
-				WHERE id_person = {$request->person->id}
-				AND inserted >= CURRENT_DATE");
+
+			$likes = Database::queryFirst("
+				SELECT count(*) AS total
+				FROM _pizarra_actions INNER JOIN _pizarra_notes pn on _pizarra_actions.id_person = pn.id_person
+				WHERE pn.id_person = {$request->person->id} AND _pizarra_actions.action = 'like'
+				AND _pizarra_actions.inserted >= CURRENT_DATE")->total;
+
+			$comments = Database::queryFirst("
+				SELECT count(*) AS total
+				FROM _pizarra_comments INNER JOIN _pizarra_notes pn on _pizarra_comments.id_person = pn.id_person
+				WHERE pn.id_person = {$request->person->id}
+				AND _pizarra_comments.inserted >= CURRENT_DATE")->total;
 
 			// set widget
 			$widgets['pizarra'] = (Object) [
-				'like' => empty($data->likes) ? 0 : $data->likes,
-				'comment' => empty($data->comments) ? 0 : $data->comments,
+				'like' => $likes,
+				'comment' => $comments,
 			];
 		}
 
