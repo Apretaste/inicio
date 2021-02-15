@@ -87,13 +87,13 @@ class Service
 
 			$likes = Database::queryFirst("
 				SELECT count(*) AS total
-				FROM _pizarra_actions INNER JOIN _pizarra_notes pn on _pizarra_actions.id_person = pn.id_person
+				FROM _pizarra_actions INNER JOIN _pizarra_notes pn on _pizarra_actions.note = pn.id
 				WHERE pn.id_person = {$request->person->id} AND _pizarra_actions.action = 'like'
 				AND _pizarra_actions.inserted >= CURRENT_DATE")->total;
 
 			$comments = Database::queryFirst("
 				SELECT count(*) AS total
-				FROM _pizarra_comments INNER JOIN _pizarra_notes pn on _pizarra_comments.id_person = pn.id_person
+				FROM _pizarra_comments INNER JOIN _pizarra_notes pn on _pizarra_comments.note = pn.id
 				WHERE pn.id_person = {$request->person->id}
 				AND _pizarra_comments.inserted >= CURRENT_DATE")->total;
 
