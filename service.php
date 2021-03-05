@@ -85,11 +85,10 @@ class Service
 		// pizarra
 		if (strpos($preferences->widgets, 'pizarra') !== false) {
 
-			$likes = Database::queryFirst("
+			$reactions = Database::queryFirst("
 				SELECT count(*) AS total
-				FROM _pizarra_actions INNER JOIN _pizarra_notes pn on _pizarra_actions.note = pn.id
-				WHERE pn.id_person = {$request->person->id} AND _pizarra_actions.action = 'like'
-				AND _pizarra_actions.inserted >= CURRENT_DATE")->total;
+				FROM _pizarra_reactions INNER JOIN _pizarra_notes pn on _pizarra_reactions.note = pn.id
+				WHERE pn.id_person = {$request->person->id} AND _pizarra_reactions.inserted >= CURRENT_DATE")->total;
 
 			$comments = Database::queryFirst("
 				SELECT count(*) AS total
@@ -99,7 +98,7 @@ class Service
 
 			// set widget
 			$widgets['pizarra'] = (Object) [
-				'like' => $likes,
+				'reactions' => $reactions,
 				'comment' => $comments,
 			];
 		}
